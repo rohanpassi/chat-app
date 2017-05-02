@@ -1,0 +1,60 @@
+<div class="jumbotron">
+  <h2> Welcome <b>{{myNickName}}</b></h2>,
+  <p>Send Messages below</p>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-4">
+    <small class="marker">Other Users</small>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr class="active" ng-repeat="user in room2users track by $index">
+          <td><i class='fa fa-user'></i></td>
+          <td>{{user.nickname}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-8">
+    <form ng-submit='sendMessage()'>
+      <div class='input-group'>
+        <input class='input-sm form-control'
+                    ng-model='room2Message'
+                    type='text'
+                    placeholder="Type a message...">
+        <span class='input-group-btn'>
+          <input class='input-sm btn btn-default'
+          type='submit'
+          value='Send'>
+        </span>
+      </div>
+    </form>
+    <br>
+
+    <div class='well chatbox scroll-area' id='chat_history'>
+      <ul class='list-unstyled'>
+        <li ng-repeat='m in room2Messages'>
+          <div class="alert alert-info messageBox left" ng-if="m.from == myNickName">
+            <sup class="left">
+              <span class='glyphicon glyphicon-user'></span>&nbsp;
+              <strong>You</strong>&nbsp;
+            </sup>
+            <sup class="date">{{m.timestamp | date:'medium'}}</sup>
+            <br>
+            <p>{{m.message}}</p>
+          </div>
+          <div class="alert alert-success messageBox right" ng-if="m.from != myNickName">
+            <sup class="left">
+              <span class='glyphicon glyphicon-user'></span>&nbsp;
+              <strong>{{m.from}}</strong>&nbsp;
+            </sup>
+            <sup class="date">{{m.timestamp | date:'medium'}}</sup>
+            <br>
+            <p>{{m.message}}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

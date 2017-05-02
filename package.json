@@ -1,0 +1,24 @@
+{
+  "name": "ng-app",
+  "version": "1.0.0",
+  "description": "Sample chat application using Socket.io",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rohan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "ng-dialog": "^1.1.0",
+    "path": "^0.12.7",
+    "socket.io": "^1.4.5"
+  },
+  "engines": {
+    "node": "6.10.0"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+}
