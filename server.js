@@ -71,7 +71,18 @@ io.on('connection', function(socket) {
   		socketid: socket.id
   	}
   	usersRoom1.push(userObj);
-    usersAll.push(userObj);
+    flag = false;
+    for(var i=0; i<usersAll.length; i++){
+      if(usersAll[i].nickname != userObj.nickname){
+        continue;
+      }
+      else{
+        flag = true;
+      }
+    }
+    if(flag){
+      usersAll.push(userObj);
+    }
   	io.emit('users-room1', usersRoom1);
   });
 
@@ -86,7 +97,18 @@ io.on('connection', function(socket) {
       socketid: socket.id
     }
     usersRoom2.push(userObj);
-    usersAll.push(userObj);
+    flag = false;
+    for(var i=0; i<usersAll.length; i++){
+      if(usersAll[i].nickname != userObj.nickname){
+        continue;
+      }
+      else{
+        flag = true;
+      }
+    }
+    if(flag){
+      usersAll.push(userObj);
+    }
     io.emit('users-room2', usersRoom2);
   });
 

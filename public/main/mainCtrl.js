@@ -42,14 +42,18 @@
 
 	      		$scope.joinRoom1 = function(){
 	      			$localStorage.room1 = true;
-	      			// $scope.room1 = true;
+	      			socket.emit('join-room1', {
+			          nickname: $localStorage.nickname
+			        });
 	      			ngDialog.close();
 	      			$state.go('main.room1');
 	      		}
 
 	      		$scope.joinRoom2 = function(){
 	      			$localStorage.room2 = true;
-	      			// $scope.room2 = true;
+	      			socket.emit('join-room2', {
+			          nickname: $localStorage.nickname
+			        });
 	      			ngDialog.close();
 	      			$state.go('main.room2');
 	      		}
