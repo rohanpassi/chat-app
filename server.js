@@ -29,7 +29,7 @@ router.get("/join", function(req, res){
 // app.use("/", router);
 
 
-var port = 8080;
+var port = process.env.PORT ||8080;
 var usersRoom1 = [];
 var usersRoom2 = [];
 var usersAll = [];
