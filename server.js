@@ -13,20 +13,20 @@ router.get("/join", function(req, res){
   res.sendFile(__dirname + "/public/index.html");
 });
 
-// router.get("/room1", function(req, res){
-//   res.sendFile(__dirname + "/public/index.html");
-// });
+router.get("/room1", function(req, res){
+  res.sendFile(__dirname + "/public/index.html");
+});
 
-// router.get("/room2", function(req, res){
-//   res.sendFile(__dirname + "/public/index.html");
-// });
+router.get("/room2", function(req, res){
+  res.sendFile(__dirname + "/public/index.html");
+});
 
-// router.get("/about", function(req, res){
-//   res.sendFile(__dirname + "/public/index.html");
-// });
+router.get("/about", function(req, res){
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 
-// app.use("/", router);
+app.use("/", router);
 
 
 var port = process.env.PORT ||8080;
@@ -37,6 +37,7 @@ var usersAll = [];
 var room1Messages = [];
 var room2Messages = [];
 app.use(express.static(path.join(__dirname, "public")));
+
 
 io.on('connection', function(socket) {
   console.log('new connection made');
