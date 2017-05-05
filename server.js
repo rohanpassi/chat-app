@@ -71,6 +71,7 @@ io.on('connection', function(socket) {
   		nickname: data.nickname,
   		socketid: socket.id
   	}
+	console.log(userObj);
   	usersRoom1.push(userObj);
     flag = false;
     for(var i=0; i<usersAll.length; i++){

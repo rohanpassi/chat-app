@@ -27,7 +27,7 @@
 
   	socket.emit('get-room1-messages');
     socket.on('room1-messages', function(data){
-      console.log(data);
+      console.log("Messages: ", data);
       $scope.room1Messages = data;
     });
 

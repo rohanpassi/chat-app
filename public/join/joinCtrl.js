@@ -5,13 +5,13 @@
     .module('app')
     .controller('joinCtrl', joinCtrl);
 
-  joinCtrl.$inject = ['$state', '$scope', '$localStorage', 'socket'];
+  joinCtrl.$inject = ['$state', '$scope', 'socket', '$sessionStorage'];
 
-  function joinCtrl($state, $scope, $localStorage, socket) {
+  function joinCtrl($state, $scope, socket, $sessionStorage) {
   	$scope.name = "";
   	var nickname;
-    $localStorage.room1 = false;
-    $localStorage.room2 = false;
+    $sessionStorage.room1 = false;
+    $sessionStorage.room2 = false;
     $scope.isAuth = false;
     $scope.room1 = false;
     $scope.room2 = false;
@@ -20,10 +20,12 @@
     socket.emit('get-all-users');
     socket.on('all-users', function(data){
       $scope.users = data;
+      console.log($scope.users);
     });
 
     $scope.checkUnique = function(){
       for(var i=0; i < $scope.users.length; i++){
+        // socket.emit('get-all-users');
         if($scope.users[i].nickname == $scope.name){
           $scope.userForm.username.$setValidity("text", false);
           $scope.userForm.username.errorMessage = "Username already exists! Please enter another username"
@@ -38,20 +40,26 @@
   	$scope.join = function(){
       $scope.isAuth = true;
   		nickname = $scope.name;
-  		$localStorage.nickname = $scope.name;
+  		$sessionStorage.nickname = $scope.name;
 
   		if($scope.room1){
+        if(nickname == ""){
+          nickname = "Anonymous User";
+        }
         socket.emit('join-room1', {
           nickname: nickname
         });
-        $localStorage.room1 = true;
+        $sessionStorage.room1 = true;
         $state.go('main.room1');
       }
       if($scope.room2){
+        if(nickname == ""){
+          nickname = "Anonymous User";
+        }
         socket.emit('join-room2', {
           nickname: nickname
         });
-        $localStorage.room2 = true;
+        $sessionStorage.room2 = true;
         $state.go('main.room2');
       }
   	}
