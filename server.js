@@ -75,14 +75,12 @@ io.on('connection', function(socket) {
   	usersRoom1.push(userObj);
     flag = false;
 
-    usersAll.forEach(function(user){
+    for(var user of usersAll){
       if(user.nickname == userObj.nickname){
         flag = true;
+        break;
       }
-      else{
-        continue;
-      }
-    });
+    }
     if(!flag){
       usersAll.push(userObj);
     }
@@ -99,14 +97,12 @@ io.on('connection', function(socket) {
     }
     usersRoom2.push(userObj);
     flag = false;
-    usersAll.forEach(function(user){
+    for(var user of usersAll){
       if(user.nickname == userObj.nickname){
         flag = true;
+        break;
       }
-      else{
-        continue;
-      }
-    });
+    }
     if(!flag){
       usersAll.push(userObj);
     }
