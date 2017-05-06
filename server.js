@@ -117,13 +117,13 @@ io.on('connection', function(socket) {
 
   // Broadcast the message in room1 users
   socket.on('send-message-room1', function(data){
-    room1Messages.push(data);
+    room1Messages.unshift(data);
     socket.broadcast.emit('message-received-room1', data);
   });
 
   // Broadcast the message in room 2 users
   socket.on('send-message-room2', function(data){
-    room2Messages.push(data);
+    room2Messages.unshift(data);
     socket.broadcast.emit('message-received-room2', data);
   });
 
