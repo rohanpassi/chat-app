@@ -12,7 +12,6 @@
   	var nickname;
     $sessionStorage.room1 = false;
     $sessionStorage.room2 = false;
-    $scope.isAuth = false;
     $scope.room1 = false;
     $scope.room2 = false;
     $scope.users = [];
@@ -38,24 +37,22 @@
     }
 
   	$scope.join = function(){
-      $scope.isAuth = true;
   		nickname = $scope.name;
   		$sessionStorage.nickname = $scope.name;
 
+      if(nickname == ""){
+        nickname = "Anonymous User";
+      }
+
   		if($scope.room1){
-        if(nickname == ""){
-          nickname = "Anonymous User";
-        }
         socket.emit('join-room1', {
           nickname: nickname
         });
         $sessionStorage.room1 = true;
         $state.go('main.room1');
       }
+
       if($scope.room2){
-        if(nickname == ""){
-          nickname = "Anonymous User";
-        }
         socket.emit('join-room2', {
           nickname: nickname
         });
@@ -63,6 +60,5 @@
         $state.go('main.room2');
       }
   	}
-
   }
 })();

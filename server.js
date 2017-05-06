@@ -1,10 +1,13 @@
+// Env Variables
 var express = require('express');
 var path = require('path');
 var app = express();
 var server = require('http').Server(app);
 var router = express.Router();
 var io = require('socket.io')(server);
+var port = process.env.PORT ||8080;
 
+// Routes
 router.get("/", function(req, res){
   res.sendFile(__dirname + "/public/index.html");
 });
@@ -25,17 +28,16 @@ router.get("/about", function(req, res){
   res.sendFile(__dirname + "/public/index.html");
 });
 
-
 app.use("/", router);
 
-
-var port = process.env.PORT ||8080;
+// Data Variables
 var usersRoom1 = [];
 var usersRoom2 = [];
 var usersAll = [];
-
 var room1Messages = [];
 var room2Messages = [];
+
+
 app.use(express.static(path.join(__dirname, "public")));
 
 
@@ -142,7 +144,7 @@ io.on('connection', function(socket) {
 
     io.emit('users-room1', usersRoom1);
     io.emit('users-room2', usersRoom2);
-  })
+  });
 
 });
 
