@@ -4,15 +4,17 @@
 		.module('app')
 		.controller('mainCtrl', mainCtrl)
 
-	mainCtrl.$inject = ['$scope', '$localStorage', 'socket', '$location', 'ngDialog', '$state'];
-	function mainCtrl($scope, $localStorage, socket, $location, ngDialog, $state) {
+	mainCtrl.$inject = ['$scope', '$sessionStorage', 'socket', '$location', 'ngDialog', '$state'];
+	function mainCtrl($scope, $sessionStorage, socket, $location, ngDialog, $state) {
 		
-		$scope.room1 = $localStorage.room1;
-		$scope.room2 = $localStorage.room2;
+		$scope.room1 = $sessionStorage.room1;
+		$scope.room2 = $sessionStorage.room2;
+		$scope.isNavCollapsed = true;
+		$scope.isCollapsed = false;
 
 		$scope.checkAuth = function(room){
 			if(room == 1){
-				if($localStorage.room1){
+				if($sessionStorage.room1){
 					$state.go('main.room1');
 				}
 				else{
@@ -20,7 +22,7 @@
 				}
 			}
 			else{
-				if($localStorage.room2){
+				if($sessionStorage.room2){
 					$state.go('main.room2')
 				}
 				else{
@@ -36,23 +38,23 @@
 	      	showClose: false,
 	      	closeByEscape: true,
 	      	scope: $scope,
-	      	controller: ['$scope', '$localStorage', '$state', function($scope, $localStorage, $state){
-	      		$scope.room1 = $localStorage.room1;
-	      		$scope.room2 = $localStorage.room2;
+	      	controller: ['$scope', '$sessionStorage', '$state', function($scope, $sessionStorage, $state){
+	      		$scope.room1 = $sessionStorage.room1;
+	      		$scope.room2 = $sessionStorage.room2;
 
 	      		$scope.joinRoom1 = function(){
-	      			$localStorage.room1 = true;
+	      			$sessionStorage.room1 = true;
 	      			socket.emit('join-room1', {
-			          nickname: $localStorage.nickname
+			          nickname: $sessionStorage.nickname
 			        });
 	      			ngDialog.close();
 	      			$state.go('main.room1');
 	      		}
 
 	      		$scope.joinRoom2 = function(){
-	      			$localStorage.room2 = true;
+	      			$sessionStorage.room2 = true;
 	      			socket.emit('join-room2', {
-			          nickname: $localStorage.nickname
+			          nickname: $sessionStorage.nickname
 			        });
 	      			ngDialog.close();
 	      			$state.go('main.room2');
