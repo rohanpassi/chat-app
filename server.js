@@ -71,18 +71,19 @@ io.on('connection', function(socket) {
   		nickname: data.nickname,
   		socketid: socket.id
   	}
-	console.log(userObj);
+    console.log(userObj);
   	usersRoom1.push(userObj);
     flag = false;
-    for(var i=0; i<usersAll.length; i++){
-      if(usersAll[i].nickname != userObj.nickname){
-        continue;
-      }
-      else{
+
+    usersAll.forEach(function(user){
+      if(user.nickname == userObj.nickname){
         flag = true;
       }
-    }
-    if(flag){
+      else{
+        continue;
+      }
+    });
+    if(!flag){
       usersAll.push(userObj);
     }
   	io.emit('users-room1', usersRoom1);
@@ -90,8 +91,6 @@ io.on('connection', function(socket) {
 
   // Whem new socket joins in room 2
   socket.on('join-room2', function(data){
-    console.log(data); // nickname
-    console.log(usersRoom2);
     socket.nickname = data.nickname;
     usersRoom2[socket.nickname] = socket;
     var userObj = {
@@ -100,15 +99,15 @@ io.on('connection', function(socket) {
     }
     usersRoom2.push(userObj);
     flag = false;
-    for(var i=0; i<usersAll.length; i++){
-      if(usersAll[i].nickname != userObj.nickname){
-        continue;
-      }
-      else{
+    usersAll.forEach(function(user){
+      if(user.nickname == userObj.nickname){
         flag = true;
       }
-    }
-    if(flag){
+      else{
+        continue;
+      }
+    });
+    if(!flag){
       usersAll.push(userObj);
     }
     io.emit('users-room2', usersRoom2);

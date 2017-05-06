@@ -20,7 +20,7 @@
     socket.emit('get-all-users');
     socket.on('all-users', function(data){
       $scope.users = data;
-      console.log("Chat Users: ", $scope.users);
+      console.log("Chat Users: ", data);
     });
 
     $scope.checkUnique = function(){
