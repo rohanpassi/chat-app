@@ -44,22 +44,27 @@ io.on('connection', function(socket) {
 
   // Show all users
   socket.on('get-all-users', function(){
+    console.log("All Users: ", usersAll);
     socket.emit('all-users', usersAll);
   });
 
   socket.on('get-users-room1', function(){
+    console.log("Users in room 1: ", usersRoom1);
     socket.emit('users-room1', usersRoom1);
   });
 
   socket.on('get-users-room2', function(){
+    console.log("Users in room 2: ", usersRoom2);
     socket.emit('users-room2', usersRoom2);
   });
 
   socket.on('get-room1-messages', function(){
+    console.log("Messages in room 1: ", room1Messages);
     socket.emit('room1-messages', room1Messages);
   });
 
   socket.on('get-room2-messages', function(){
+    console.log("Messages in room 1: ", room2Messages);
     socket.emit('room2-messages', room2Messages);
   });
 
@@ -71,7 +76,6 @@ io.on('connection', function(socket) {
   		nickname: data.nickname,
   		socketid: socket.id
   	}
-    console.log(userObj);
   	usersRoom1.push(userObj);
     flag = false;
 
@@ -124,6 +128,7 @@ io.on('connection', function(socket) {
   // Disconnect from socket
   socket.on('disconnect', function(){
     usersAll = usersAll.filter(function(item){
+      console.log(item.nickname + " disconnected")
       return item.nickname !== socket.nickname;
     });
 
