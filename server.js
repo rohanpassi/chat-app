@@ -130,7 +130,7 @@ io.on('connection', function(socket) {
 
   socket.on('get-username', function(){
     anonymousUserCnt += 1;
-    name = "Anonymous User" + anonymousUserCnt;
+    name = "Anonymous User" + anonymousUserCnt.toString();
     socket.emit('username', name);
   });
 
