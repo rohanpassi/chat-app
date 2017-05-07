@@ -26,8 +26,14 @@
     $scope.room2 = $sessionStorage.room2;
 
     if($scope.room1 == false){
-      socket.emit('join-room1', {
-        nickname: nickname
+      socket.emit('get-username');
+      socket.on('username', function(data){
+        nickname += data;
+        $scope.myNickName = nickname;
+        $sessionStorage.nickname = nickname;
+        socket.emit('join-room1', {
+          nickname: nickname
+        });
       });
       $scope.room1 = true;
       $sessionStorage.room1 = true;

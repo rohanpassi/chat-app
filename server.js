@@ -36,6 +36,7 @@ var usersRoom2 = [];
 var usersAll = [];
 var room1Messages = [];
 var room2Messages = [];
+var anonymousUserCnt = 0;
 
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -125,6 +126,11 @@ io.on('connection', function(socket) {
   socket.on('send-message-room2', function(data){
     room2Messages.unshift(data);
     socket.broadcast.emit('message-received-room2', data);
+  });
+
+  socket.on('get-username', function(){
+    anonymousUserCnt += 1;
+    socket.emit('username', anonymousUserCnt);
   });
 
   // Disconnect from socket
