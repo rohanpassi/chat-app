@@ -130,7 +130,8 @@ io.on('connection', function(socket) {
 
   socket.on('get-username', function(){
     anonymousUserCnt += 1;
-    socket.emit('username', anonymousUserCnt);
+    name = "Anonymous User" + anonymousUserCnt;
+    socket.emit('username', name);
   });
 
   // Disconnect from socket

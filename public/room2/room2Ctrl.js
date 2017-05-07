@@ -11,16 +11,21 @@
   	$scope.room2Message = "";
   	$scope.room2Messages = [];
   	$scope.room2users = [];
-
+    var nickname;
+    
     if($sessionStorage.nickname){
       $scope.myNickName = $sessionStorage.nickname;
+      nickname = $scope.myNickName;
     }
 
     if(($scope.myNickName == "") || ($scope.myNickName == undefined)){
-      $scope.myNickName = "Anonymous User";
+      socket.emit('get-username');
+      socket.on('username', function(data){
+        nickname = data;
+        $scope.myNickName = nickname;
+        $sessionStorage.nickname = nickname;
+      });
     }
-
-    var nickname = $scope.myNickName;
 
     $scope.room1 = $sessionStorage.room1;
     $scope.room2 = $sessionStorage.room2;
@@ -29,8 +34,8 @@
       socket.emit('join-room2', {
         nickname: nickname
       });
-      $scope.room1 = true;
-      $sessionStorage.room1 = true;
+      $scope.room2 = true;
+      $sessionStorage.room2 = true;
     }
 
   	socket.emit('get-users-room2');
